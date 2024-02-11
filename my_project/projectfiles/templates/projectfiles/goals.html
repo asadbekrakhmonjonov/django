@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<table class="table table-striped" xmlns="http://www.w3.org/1999/html">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Goals</th>
+      <th scope="col">Time</th>
+      <th scope="col">Complete</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+  {% for goal in goals %}
+  <tr>
+      <th scope="row"></th>
+      <td>{{goal.goal}}</td>
+      <td>{{goal.attended_time}}</td>
+      <td><a href="">Complete</a></td>
+      {% endfor %}
+    </tr>
+</table>
