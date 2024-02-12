@@ -6,3 +6,7 @@ from . models import DailyGoal
 # Register your models here.
 admin.site.register(UserInfo)
 admin.site.register(DailyGoal)
+
+
+#username = asadbek
+#password: asad1234
