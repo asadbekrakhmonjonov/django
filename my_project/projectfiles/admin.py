@@ -1,11 +1,11 @@
 from django.contrib import admin
-from . models import UserInfo
-from . models import DailyGoal
+from .models import Data
+from .models import userInfo
 
 
 # Register your models here.
-admin.site.register(UserInfo)
-admin.site.register(DailyGoal)
+admin.site.register(Data)
+admin.site.register(userInfo)
 
 
 #username = asadbek
