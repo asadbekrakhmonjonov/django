@@ -5,8 +5,8 @@
 <form action="" method="POST">
   {% csrf_token %}
   {{form}}
-  <input type="submit" name="Submit"></input>
-  <a href="{% url 'user_info' %}" class="btn btn-sm btn-info">Login</a>
+  <input type="submit" name="Submit">
+  <a href="{% url 'user_info' user.id %}" class="btn btn-sm btn-info">Login</a>
 </form>
 {% endblock %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
