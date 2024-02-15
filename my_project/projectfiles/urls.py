@@ -4,7 +4,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('user_info/<str:pk>/', views.userInfo, name='user_info'),
     path('task_info/', views.taskInfo, name='task_info'),
-    path('task_list/', views.taskList, name='task_list'),
+    path('task_list'
+         '/', views.taskList, name='task_list'),
 
 
 ]
