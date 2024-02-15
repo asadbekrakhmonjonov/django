@@ -6,8 +6,9 @@
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Name</th>
       <th scope="col">Task</th>
-      <th scope="col">Day</th>
+      <th scope="col">Time</th>
       <th scope="col">Status</th>
     </tr>
   </thead>
@@ -15,8 +16,9 @@
   {% for task in user_task %}
     <tr>
       <th scope="row">1</th>
+      <td>{{user.username}}</td>
       <td>{{task.task_name}}</td>
-      <td>{{task.day}}</td>
+      <td>{{task.tags}}</td>
       <td>{{task.status}}</td>
     </tr>
   {% endfor %}

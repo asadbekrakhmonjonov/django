@@ -31,10 +31,9 @@ def taskInfo(request):
             return redirect('/')
     context = {'form': form}
     return render(request, 'projectfiles/tasks.html', context)
-def taskList(request,pk):
+def taskList(request):
     user_task = tasks.objects.all()
-    user_id = user_task.get(id=pk)
-    context = {'user_task': user_task, 'user_id': user_id}
+    context = {'user_task': user_task}
 
     return render(request, 'projectfiles/task_list.html',context)
 
