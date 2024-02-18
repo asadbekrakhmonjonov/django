@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import registerForm
 from .create import taskForm
+from .filter import TaskFilter
 
 
 # Create your views here.
@@ -16,11 +17,10 @@ def home(request):
     context = {'form': form}
     return render(request, 'projectfiles/main.html', context)
 
-def userInfo(request,pk):
+def userInfo(request):
     users = Data.objects.all()
-    user_id = users.get(id=pk)
 
-    context = {'users': users, 'user_id': user_id}
+    context = {'users': users}
     return render(request, 'projectfiles/user_info.html',context)
 def taskInfo(request):
     form = taskForm()
@@ -33,7 +33,9 @@ def taskInfo(request):
     return render(request, 'projectfiles/tasks.html', context)
 def taskList(request):
     user_task = tasks.objects.all()
-    context = {'user_task': user_task}
+    myFilter = TaskFilter(request.GET, queryset=user_task)
+    user_task = myFilter.qs
+    context = {'user_task': user_task, 'myFilter': myFilter}
 
     return render(request, 'projectfiles/task_list.html',context)
 

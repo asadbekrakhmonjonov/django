@@ -6,6 +6,6 @@
     {% csrf_token %}
     {{form}}
     <input type="submit" name="Submit">
-    <a class="btn btn-sm btn-info" href="{% url 'task_list' user.id %}">Done</a>
+    <a class="btn btn-sm btn-info" href="{% url 'task_list' %}">Done</a>
 </form>
 {% endblock %}
