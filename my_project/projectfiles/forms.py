@@ -1,11 +1,8 @@
 from django.forms import ModelForm
-from .models import Data
-from .models import tasks
-class registerForm(ModelForm):
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django import forms
+class CreateUserForm(UserCreationForm):
     class Meta:
-        model = Data
-        fields = '__all__'
-class taskForm(ModelForm):
-    class Meta:
-        model = tasks
-        fields = '__all__'
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
