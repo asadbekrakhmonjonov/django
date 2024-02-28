@@ -1,6 +1,6 @@
 {% load static %}
 {% block content %}
-<form method="POST" action="">
+<form method="POST">
     <br>
     {% csrf_token %}
     {{taskForm.as_p}}
