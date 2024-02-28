@@ -1,7 +1,7 @@
 {% load static %}
 {% block content %}
-<p> Are you sure you want to delete "{{tasks}}"?</p>
- <form  method="POST">
+<p> Are you sure you want to delete "{{task}}"?</p>
+ <form action="{% url 'delete_task' task.id %}" method="POST">
      {% csrf_token %}
 
     <a href="">Cancel</a>

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import task
+from .models import Task
 from django import forms
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -9,5 +9,5 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 class TaskForm(ModelForm):
     class Meta:
-        model = task
+        model = Task
         fields = '__all__'

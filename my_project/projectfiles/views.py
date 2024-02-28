@@ -22,13 +22,13 @@ def taskPage(request):
         if form.is_valid():
             form.save()
             # Use a named URL if available, replace 'home' with your actual home page name
-            return redirect('home')
-    context = {'taskForm': form}
+            return redirect('/')
+    context = {'TaskForm': form}
     return render(request, 'projectfiles/taskPage.html', context)
 
 def homePage(request):
     task = Task.objects.all()
-    context = {'tasks': task}
+    context = {'task': task}
     return render(request, 'projectfiles/homePage.html', context)
 
 def updateTask(request, pk_test):
@@ -43,10 +43,13 @@ def updateTask(request, pk_test):
             # Use a named URL if available, replace 'home' with your actual home page name
             return redirect('home')
 
-    context = {'form': form}
+    context = {'TaskForm': form}
     return render(request, 'projectfiles/taskPage.html', context)
 
 def deleteTask(request, pk):
     task = Task.objects.get(id=pk)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('home')
     context = {'task': task}
     return render(request, 'projectfiles/deleteTask.html', context)

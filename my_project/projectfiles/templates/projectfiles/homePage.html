@@ -31,14 +31,14 @@
                             <tbody>
                                 <form method="POST">
                                     {% csrf_token %}
-                                    {% for task in task %} <!-- Corrected variable name from 'load' to 'task' -->
+                                    {% for load in task %} <!-- Corrected variable name from 'load' to 'task' -->
                                         <tr>
-                                            <td>{{ task.task_name }}</td>
-                                            <td>{{ task.task_status }}</td>
-                                            <td>{{ task.due_date }}</td>
+                                            <td>{{ load.task_name }}</td>
+                                            <td>{{ load.task_status }}</td>
+                                            <td>{{ load.due_date }}</td>
                                             <td>
-                                                <a href="{% url 'update_task' task.id %}" class="btn btn-sm btn-info">update</a>
-                                                <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-info">delete</a>
+                                                <a href="{% url 'update_task' pk_test=load.pk %}" class="btn btn-sm btn-info">update</a>
+                                                <a href="{% url 'delete_task' pk=load.pk %}" class="btn btn-sm btn-info">delete</a>
                                             </td>
                                         </tr>
                                     {% endfor %}
