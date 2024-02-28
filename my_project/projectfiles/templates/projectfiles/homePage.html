@@ -1,5 +1,6 @@
 {% load static %}
 {% block content %}
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -34,9 +35,8 @@
     <td>{{load.task_name}}</td>
     <td>{{load.task_status}}</td>
     <td>{{load.due_date}}</td>
-<td>
-<a href="" class="btn btn-primary btn-action mr-1"></a>
-<a class="btn btn-danger btn-action" href="" ></a>
+    <td><a href="{% url 'task_page' %}" class="btn btn-action">update</a></td>
+
 </td>
 </tr>
 {% endfor %}

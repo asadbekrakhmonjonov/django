@@ -1,8 +1,10 @@
 {% load static %}
 {% block content %}
 <form method="POST" action="">
+    <br>
     {% csrf_token %}
-    {{taskForm}}
+    {{taskForm.as_p}}
+    <br>
     <input type="submit" name="Submit">
 </form>
 {% endblock %}

@@ -33,5 +33,5 @@ def updateTask(request, pk):
         if form.is_valid():
             form.save()
             return redirect('/')
-    context = {'form': form}
+    context = {'form': form, 'chore': chore}
     return render(request, 'projectfiles/taskPage.html', context)
