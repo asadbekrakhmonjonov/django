@@ -1,5 +1,7 @@
+from .filter import TaskFilter
 from .forms import CreateUserForm, TaskForm
 from django.shortcuts import render, redirect
+from .filter import TaskFilter
 from django.contrib import messages
 from .models import Task
 
@@ -28,7 +30,9 @@ def taskPage(request):
 
 def homePage(request):
     task = Task.objects.all()
-    context = {'task': task}
+    myFilter = TaskFilter(request.GET, queryset=task)
+    task = myFilter.qs
+    context = {'task': task, 'myFilter': myFilter}
     return render(request, 'projectfiles/homePage.html', context)
 
 def updateTask(request, pk_test):
