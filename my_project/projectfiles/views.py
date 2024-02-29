@@ -13,27 +13,29 @@ def signPage(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-            messages.success(request, 'Account is created for', user)
+            messages.success(request, 'Account is created for ' + user)
             # Use a named URL if available, replace 'home' with your actual home page name
             return redirect('login')
     context = {'regForm': form}
     return render(request, 'projectfiles/register.html', context)
 
 def loginPage(request):
-
     if request.method == 'POST':
-
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(email=email, password=password)
-        if user is not None:
 
+        # Correct the authenticate function call
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.info(request, 'Email or Password is incorrect')
+            messages.info(request, 'Wrong username or password')
+
     context = {}
     return render(request, 'projectfiles/login.html', context)
+
 
 def taskPage(request):
     form = TaskForm()
