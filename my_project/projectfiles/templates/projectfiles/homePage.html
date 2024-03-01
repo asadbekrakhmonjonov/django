@@ -17,6 +17,8 @@
                 <div class="card-header">
                     <h4>Task Details</h4>
                 </div>
+                 <span>Hello, </span>
+                <span><a href="{% url 'logout' %}">Logout</a></span>
                 <br>
                 <div class="row">
                     <div class="col">
@@ -28,6 +30,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <br>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -49,8 +52,9 @@
                                             <td>{{ load.task_status }}</td>
                                             <td>{{ load.due_date }}</td>
                                             <td>
-                                                <a href="{% url 'update_task' pk_test=load.pk %}" class="btn btn-sm btn-info">update</a>
-                                                <a href="{% url 'delete_task' pk=load.pk %}" class="btn btn-sm btn-info">delete</a>
+                                                <a href="{% url 'update_task' pk_test=load.pk %}" class="btn btn-sm btn-info">Update</a>
+                                                <a href="{% url 'delete_task' pk=load.pk %}" class="btn btn-sm btn-info">Delete</a>
+                                                <a href="{% url 'task_page' %}" class="btn btn-sm btn-info">Add Task</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

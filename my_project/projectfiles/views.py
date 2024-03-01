@@ -1,10 +1,13 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm, TaskForm
 from django.shortcuts import render, redirect
 from .filter import TaskFilter
 from django.contrib import messages
 from .models import Task
+from .decorators import unauthenticated_user
+from django.contrib.auth.decorators import login_required
 
+@unauthenticated_user
 def signPage(request):
     form = CreateUserForm()
 
@@ -16,8 +19,10 @@ def signPage(request):
             messages.success(request, 'Account is created for ' + user)
             # Use a named URL if available, replace 'home' with your actual home page name
             return redirect('login')
+
     context = {'regForm': form}
     return render(request, 'projectfiles/register.html', context)
+
 
 def loginPage(request):
     if request.method == 'POST':
@@ -35,8 +40,11 @@ def loginPage(request):
 
     context = {}
     return render(request, 'projectfiles/login.html', context)
+def logoutPage(request):
+    logout(request)
+    return redirect('login')
 
-
+@login_required(login_url='login')
 def taskPage(request):
     form = TaskForm()
     if request.method == 'POST':
@@ -44,10 +52,11 @@ def taskPage(request):
         if form.is_valid():
             form.save()
             # Use a named URL if available, replace 'home' with your actual home page name
-            return redirect('/')
+            return redirect('home')
     context = {'TaskForm': form}
     return render(request, 'projectfiles/taskPage.html', context)
 
+@login_required(login_url='login')
 def homePage(request):
     task = Task.objects.all()
     myFilter = TaskFilter(request.GET, queryset=task)
@@ -55,6 +64,7 @@ def homePage(request):
     context = {'task': task, 'myFilter': myFilter}
     return render(request, 'projectfiles/homePage.html', context)
 
+@login_required(login_url='login')
 def updateTask(request, pk_test):
     task = Task.objects.get(id=pk_test)
     form = TaskForm(instance=task)
@@ -70,6 +80,7 @@ def updateTask(request, pk_test):
     context = {'TaskForm': form}
     return render(request, 'projectfiles/taskPage.html', context)
 
+@login_required(login_url='login')
 def deleteTask(request, pk):
     task = Task.objects.get(id=pk)
     if request.method == 'POST':
