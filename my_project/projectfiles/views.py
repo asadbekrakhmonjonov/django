@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .filter import TaskFilter
 from django.contrib import messages
 from .models import Task
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 
 @unauthenticated_user
@@ -57,12 +57,17 @@ def taskPage(request):
     return render(request, 'projectfiles/taskPage.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+@login_required(login_url='login')
 def homePage(request):
-    task = Task.objects.all()
-    myFilter = TaskFilter(request.GET, queryset=task)
-    task = myFilter.qs
-    context = {'task': task, 'myFilter': myFilter}
+    tasks = Task.objects.all()
+    user_tasks = tasks.filter(user=request.user)
+    myFilter = TaskFilter(request.GET, queryset=tasks)
+    tasks = myFilter.qs
+    context = {'tasks': tasks, 'myFilter': myFilter, 'user_tasks': user_tasks}
     return render(request, 'projectfiles/homePage.html', context)
+
+
 
 @login_required(login_url='login')
 def updateTask(request, pk_test):
