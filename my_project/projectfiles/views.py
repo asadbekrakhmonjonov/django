@@ -57,7 +57,6 @@ def taskPage(request):
     return render(request, 'projectfiles/taskPage.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
 @login_required(login_url='login')
 def homePage(request):
     tasks = Task.objects.all()
