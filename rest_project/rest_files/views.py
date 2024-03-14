@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Advocate
 from .serializers import AdvocateSerializer
 from django.db.models import Q
+from rest_framework.views import APIView
 # Create your views here.
 @api_view(['GET'])
 def endpoints(request):
@@ -28,8 +29,36 @@ def advocate_list(request):
         serializer = AdvocateSerializer(advocate, many=False)
         return Response(serializer.data)
 
+class AdvocateDetail(APIView):
+    def get_object(self, username):
 
-@api_view(['GET', 'PUT', 'DELETE'])
+        try:
+            return Advocate.objects.get(username=username)
+        except Advocate.DoesNotExist:
+            raise Advocate
+
+
+    def get(self, request, username):
+
+        advocate = self.get_object(username)
+        serializer = AdvocateSerializer(advocate,many=False)
+
+        return Response(serializer.data)
+    def put(self, request, username):
+
+        advocate = self.get_object(username)
+        advocate.username = request.data['username']
+        advocate.bio = request.data['bio']
+        serializer = AdvocateSerializer(advocate, many=False)
+
+        return Response(serializer.data)
+    def delete(self, request, username):
+
+        advocate = self.get_object(username)
+        advocate.delete()
+
+        return Response('user was deleted')
+""""@api_view(['GET', 'PUT', 'DELETE'])
 def advocate_detail(request, username):
 
     advocate = Advocate.objects.get(username=username)
@@ -51,4 +80,4 @@ def advocate_detail(request, username):
     if request.method == 'DELETE':
         advocate.delete()
         serializer = AdvocateSerializer(advocate, many=False)
-        return Response('user was deleted')
+        return Response('user was deleted')"""
