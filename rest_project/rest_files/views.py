@@ -7,10 +7,16 @@ from .serializers import AdvocateSerializer, CompanySerializer
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from dotenv import load_dotenv
+load_dotenv()
+import os
+import requests
+TWITTER_API_KEY = os.environ.get('TWITTER_API_KEY')
 
 # Create your views here.
 class Endpoints(APIView):
     def get(self, request):
+        print("TWITTER_API_KEY:", TWITTER_API_KEY)
         data = ['/advocates', '/advocates/: username']
         return Response(data)
 @permission_classes([IsAuthenticated])
@@ -39,8 +45,14 @@ class AdvocateDetail(APIView):
 
     def get(self, request, username):
 
+        head = {'Authorization': 'Bearer' + TWITTER_API_KEY}
+
+        url = "https://api.twitter.com/2/users/by/username/:Dennis"
+        test = requests.get(url, headers=head).json()
+        #data = response['data']
+        print('DATA FROM TWITTER:', test)
         advocate = self.get_object(username)
-        serializer = AdvocateSerializer(advocate,many=False)
+        serializer = AdvocateSerializer(advocate, many=False)
 
         return Response(serializer.data)
     def put(self, request, username):
